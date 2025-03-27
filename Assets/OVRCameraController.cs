@@ -13,11 +13,20 @@ public class OVRCameraController : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked; // Locks cursor to center
+        // Initially lock the cursor to the center of the screen
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;  // Hide the cursor initially
     }
 
     void Update()
     {
+        // Unlock the cursor if the player clicks
+        if (Input.GetMouseButtonDown(0)) // Left mouse click to unlock
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true; // Show the cursor
+        }
+
         // Movement using WASD
         float horizontal = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         float vertical = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
