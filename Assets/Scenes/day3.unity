@@ -1178,6 +1178,7 @@ GameObject:
   - component: {fileID: 281117822}
   - component: {fileID: 281117821}
   - component: {fileID: 281117820}
+  - component: {fileID: 281117824}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -1213,7 +1214,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281117819}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1271,6 +1272,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 14.122, z: 0}
+--- !u!114 &281117824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281117819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b657b597f0c6cf444a73de582abf9a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &282312964
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5947,6 +5960,7 @@ GameObject:
   - component: {fileID: 1470881207}
   - component: {fileID: 1470881206}
   - component: {fileID: 1470881205}
+  - component: {fileID: 1470881209}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -5982,7 +5996,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470881204}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6040,6 +6054,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 1.061, z: 0}
+--- !u!114 &1470881209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470881204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf85f83beb87be47952a78cf20f18a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1484810936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7536,15 +7562,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 177.73
+      value: 55.54
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 97.37
+      value: 97.49
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -68.66
+      value: 2.68
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalRotation.w
