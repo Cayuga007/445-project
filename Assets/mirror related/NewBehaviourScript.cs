@@ -9,10 +9,7 @@ public class MirrorEffect : MonoBehaviour
     public Material faceMaterial;  // The material with the MC's face
     public Renderer mirrorRenderer; // Drag your mirror object here
 
-    public float flashDuration = 3f;
-    private bool isFlashing = false;
-
-    void Start()
+    private void Start()
     {
         if (mirrorRenderer == null)
             mirrorRenderer = GetComponent<Renderer>();
@@ -20,29 +17,21 @@ public class MirrorEffect : MonoBehaviour
         mirrorRenderer.material = blankMaterial;
     }
 
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        // Press "E" to trigger the mirror flash effect
-        if (Input.GetKeyDown(KeyCode.E))
+        // Check if the object entering the trigger is the OVR Player Controller
+        if (other.CompareTag("Player")) // Ensure your OVR Player Controller has the "Player" tag
         {
-            TriggerMirrorFlash();
+            mirrorRenderer.material = faceMaterial;
         }
     }
 
-    public void TriggerMirrorFlash()
+    private void OnTriggerExit(Collider other)
     {
-        if (!isFlashing)
+        // Revert to blank material when the player exits the trigger
+        if (other.CompareTag("Player"))
         {
-            StartCoroutine(FlashMirror());
+            mirrorRenderer.material = blankMaterial;
         }
-    }
-
-    IEnumerator FlashMirror()
-    {
-        isFlashing = true;
-        mirrorRenderer.material = faceMaterial;
-        yield return new WaitForSeconds(flashDuration);
-        mirrorRenderer.material = blankMaterial;
-        isFlashing = false;
     }
 }
