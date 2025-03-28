@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/day3.unity
     guid: c6976917b88eb7244b2726a955bfd451
   - enabled: 1
-    path: Assets/Scenes/day4.unity
+    path: Assets/Scenes/day4_no background.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: c8862e4a0d144114484f3467aae65633, type: 2}
