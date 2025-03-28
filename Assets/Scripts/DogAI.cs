@@ -13,10 +13,9 @@ public class DogAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("INTERACT");
-        if (other.gameObject.name == "OVRCustomHandPrefab_L" || other.gameObject.name == "OVRCustomHandPrefab_R")
+        if (other.gameObject.name == "LeftHandAnchor" || other.gameObject.name == "RightHandAnchor")
         {
-            //animator.SetTrigger("Pet");
+            //animator.SetTrigger("Sit");
             Debug.Log("Pet");
         }
     }
