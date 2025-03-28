@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class ObjectAudioTrigger : MonoBehaviour
 {
     private AudioSource audioSource;
     private bool hasPlayed = false; // Tracks if audio has already played
+
+    private static int playedCount = 0; // Static counter shared across instances
+    private static int totalObjects = 3; // Set this to the number of objects
 
     void Start()
     {
@@ -30,6 +31,15 @@ public class ObjectAudioTrigger : MonoBehaviour
             {
                 audioSource.Play();
                 hasPlayed = true; // Mark as played
+
+                playedCount++; // Increment count
+
+                // Check if all objects have played
+                if (playedCount >= totalObjects)
+                {
+                    Debug.Log("Change Scene");
+                    FindObjectOfType<SceneController>().LoadNextScene();
+                }
             }
             else
             {
@@ -37,6 +47,4 @@ public class ObjectAudioTrigger : MonoBehaviour
             }
         }
     }
-
-
 }

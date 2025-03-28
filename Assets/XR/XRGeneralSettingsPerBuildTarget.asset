@@ -45,6 +45,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.XR.Management:UnityEngine.XR.Management:XRGeneralSettings
   m_LoaderManagerInstance: {fileID: 7326757820157836903}
   m_InitManagerOnStart: 1
+--- !u!114 &-5379187269462715600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c3631f5e58749a59194e0cf6baf6d5, type: 3}
+  m_Name: Standalone Providers
+  m_EditorClassIdentifier: 
+  m_RequiresSettingsUpdate: 0
+  m_AutomaticLoading: 0
+  m_AutomaticRunning: 0
+  m_Loaders: []
 --- !u!114 &-5003481134699644831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +92,20 @@ MonoBehaviour:
   m_AutomaticRunning: 0
   m_Loaders:
   - {fileID: 11400000, guid: 6483f85c1df1be245986168b5c0b5e48, type: 2}
+--- !u!114 &-2456324080377890091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d236b7d11115f2143951f1e14045df39, type: 3}
+  m_Name: Standalone Settings
+  m_EditorClassIdentifier: 
+  m_LoaderManagerInstance: {fileID: -5379187269462715600}
+  m_InitManagerOnStart: 1
 --- !u!114 &-1477916143318264616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.XR.Management.Editor:UnityEditor.XR.Management:XRGeneralSettingsPerBuildTarget
   Keys: 0100000007000000
   Values:
-  - {fileID: 7888349459291963920}
+  - {fileID: -2456324080377890091}
   - {fileID: -5720737613198118159}
 --- !u!114 &1695120119482088519
 MonoBehaviour:
@@ -154,6 +184,22 @@ MonoBehaviour:
   m_AutomaticRunning: 0
   m_Loaders:
   - {fileID: 11400000, guid: 6483f85c1df1be245986168b5c0b5e48, type: 2}
+--- !u!114 &4325362163821367808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c3631f5e58749a59194e0cf6baf6d5, type: 3}
+  m_Name: Standalone Providers
+  m_EditorClassIdentifier: 
+  m_RequiresSettingsUpdate: 0
+  m_AutomaticLoading: 0
+  m_AutomaticRunning: 0
+  m_Loaders: []
 --- !u!114 &7326757820157836903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Standalone Settings
   m_EditorClassIdentifier: Unity.XR.Management:UnityEngine.XR.Management:XRGeneralSettings
-  m_LoaderManagerInstance: {fileID: -7380561380816832491}
+  m_LoaderManagerInstance: {fileID: 4325362163821367808}
   m_InitManagerOnStart: 1
 --- !u!114 &9159895651205125943
 MonoBehaviour:
