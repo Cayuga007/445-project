@@ -1004,10 +1004,8 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 0
-  rayColor: {r: 1, g: 0, b: 0, a: 1}
-  audioSource: {fileID: 0}
-  defaultClip: {fileID: 0}
-  interactionButton: 8192
+  pickupButton: 1
+  handTransform: {fileID: 1297181301}
 --- !u!54 &321160187
 Rigidbody:
   m_ObjectHideFlags: 0

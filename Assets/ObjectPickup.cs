@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class ObjectPickup : MonoBehaviour
 {
-    [Header("Hand Settings")]
-    public OVRHand ovrHand; // Reference to the OVRHand component
-    public OVRHand.HandFinger pinchFinger = OVRHand.HandFinger.Index; // Finger used for pinching
-    public float pinchThreshold = 0.8f; // Pinch strength threshold for grabbing
-
     [Header("Pickup Settings")]
-    public float interactionDistance = 3f; // Maximum distance for interaction
-    public Transform holdPoint; // Point where grabbed objects will be held
-    private GameObject heldObject = null; // Currently held object
-    private Vector3 originalPosition; // Original position of the object
-    private Quaternion originalRotation; // Original rotation of the object
+    public float interactionDistance = 3f; // 最大交互距离
+    public Transform holdPoint; // 抓取物体时的挂载点
+    private GameObject heldObject = null;
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
 
     [Header("Layer Settings")]
-    public LayerMask interactableLayer; // Layer for interactable objects
+    public LayerMask interactableLayer; // 可交互物体的层级
+
+    [Header("Input Settings")]
+    public OVRInput.Button pickupButton = OVRInput.Button.One; // 默认右手 A 键
+
+    [Header("Hand Transform")]
+    public Transform handTransform; // 发射射线的起点方向（可用控制器或手部位置）
 
     void Update()
     {
@@ -26,42 +27,39 @@ public class ObjectPickup : MonoBehaviour
 
     private void HandleInteraction()
     {
-        if (ovrHand.GetFingerPinchStrength(pinchFinger) > pinchThreshold) // Detect pinch gesture
+        if (OVRInput.GetDown(pickupButton))
         {
             if (heldObject == null)
             {
                 TryPickupObject();
             }
-        }
-        else if (heldObject != null && ovrHand.GetFingerPinchStrength(pinchFinger) <= pinchThreshold) // Release when pinch is below threshold
-        {
-            PlaceObjectDown();
+            else
+            {
+                PlaceObjectDown();
+            }
         }
     }
 
     private void TryPickupObject()
     {
-        Ray ray = new Ray(ovrHand.PointerPose.position, ovrHand.PointerPose.forward); // Raycast from hand pointer pose
-        Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.green); // Visualize ray in Scene view
+        Ray ray = new Ray(handTransform.position, handTransform.forward);
+        Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.green);
 
         if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactableLayer))
         {
-            if (hit.collider.CompareTag("Interactable")) // Check if object has "Interactable" tag
+            if (hit.collider.CompareTag("Interactable"))
             {
                 heldObject = hit.collider.gameObject;
 
-                // Save original position and rotation
                 originalPosition = heldObject.transform.position;
                 originalRotation = heldObject.transform.rotation;
 
-                // Disable physics while holding
                 Rigidbody rb = heldObject.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
                     rb.isKinematic = true;
                 }
 
-                // Move object to hold point and parent it to the hand
                 heldObject.transform.position = holdPoint.position;
                 heldObject.transform.rotation = holdPoint.rotation;
                 heldObject.transform.SetParent(holdPoint);
@@ -79,7 +77,6 @@ public class ObjectPickup : MonoBehaviour
                 rb.isKinematic = false;
             }
 
-            // Unparent the object and restore its original position/rotation
             heldObject.transform.SetParent(null);
             heldObject.transform.position = originalPosition;
             heldObject.transform.rotation = originalRotation;
