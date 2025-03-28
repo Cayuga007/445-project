@@ -1,17 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 public class ObjectPickup : MonoBehaviour
 {
+    [Header("Pickup Settings")]
     public float interactionDistance = 3f; // Maximum distance for interaction
     public Transform holdPoint; // Point where the object will be held
     private GameObject heldObject = null; // Currently held object
     private Vector3 originalPosition; // Original position of the object
     private Quaternion originalRotation; // Original rotation of the object
 
-    public OVRInput.Button interactionButton = OVRInput.Button.PrimaryIndexTrigger; // Button to interact (e.g., trigger button)
+    [Header("Raycast Settings")]
+    public LayerMask interactableLayer; // Layer for interactable objects
+    public Color rayColor = Color.red; // Color of the debug ray
+
+    [Header("Audio Settings")]
+    public AudioSource audioSource; // Audio source for playing sounds
+    public AudioClip defaultClip; // Default audio clip when interacting
+
+    [Header("OVR Input Settings")]
+    public OVRInput.Button interactionButton = OVRInput.Button.PrimaryIndexTrigger; // Button to interact
 
     void Update()
+    {
+        HandleInteraction();
+        VisualizeRaycast();
+    }
+
+    private void HandleInteraction()
     {
         if (OVRInput.GetDown(interactionButton)) // Detect button press on Oculus controller
         {
@@ -29,7 +47,7 @@ public class ObjectPickup : MonoBehaviour
     private void TryPickupObject()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward); // Raycast from headset camera
-        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactableLayer))
         {
             if (hit.collider.CompareTag("Interactable")) // Check if object has "Interactable" tag
             {
@@ -48,13 +66,19 @@ public class ObjectPickup : MonoBehaviour
 
                 // Move object to hold point and center it
                 heldObject.transform.position = holdPoint.position;
-
-                // Center adjustment (optional offset)
-                Vector3 offset = new Vector3(0, 0, 0); // Adjust as needed
-                heldObject.transform.position += offset;
-
-                // Parent it to the hold point
                 heldObject.transform.SetParent(holdPoint);
+
+                // Play audio specific to the object or fallback to default clip
+                AudioSource objectAudioSource = heldObject.GetComponent<AudioSource>();
+                if (objectAudioSource != null && objectAudioSource.clip != null)
+                {
+                    objectAudioSource.Play();
+                }
+                else if (audioSource != null && defaultClip != null)
+                {
+                    audioSource.clip = defaultClip;
+                    audioSource.Play();
+                }
             }
         }
     }
@@ -77,5 +101,11 @@ public class ObjectPickup : MonoBehaviour
 
             heldObject = null;
         }
+    }
+
+    private void VisualizeRaycast()
+    {
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        Debug.DrawRay(ray.origin, ray.direction * interactionDistance, rayColor); // Visualize the ray in Scene view
     }
 }
