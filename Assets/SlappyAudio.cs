@@ -27,6 +27,8 @@ public class SlappyAudio : MonoBehaviour
             isGrabbed = true;
             
             audioSource.Play();
+            FindObjectOfType<Day1>().updateInteraction();
         }
     }
+
 }

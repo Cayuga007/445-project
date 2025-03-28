@@ -32,6 +32,8 @@ public class ObjectAudioTrigger : MonoBehaviour
                 audioSource.Play();
                 hasPlayed = true; // Mark as played
 
+                FindObjectOfType<Day1>().updateInteraction();
+
                 playedCount++; // Increment count
 
                 // Check if all objects have played
