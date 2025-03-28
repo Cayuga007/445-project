@@ -5,6 +5,8 @@ using UnityEngine;
 public class DogAI : MonoBehaviour
 {
     private Animator animator;
+    private bool isSitting = false;
+    private bool eaten = false;
 
     void Start()
     {
@@ -13,10 +15,26 @@ public class DogAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "LeftHandAnchor" || other.gameObject.name == "RightHandAnchor")
+        if (!isSitting && (other.gameObject.name == "LeftHandAnchor" || other.gameObject.name == "RightHandAnchor"))
         {
-            //animator.SetTrigger("Sit");
-            Debug.Log("Pet");
+            isSitting = true;
+            animator.SetTrigger("SitTrigger");
+            updateDay();
         }
+    }
+
+    public void eat()
+    {
+        if (eaten) return;
+
+        eaten = true;
+        animator.SetTrigger("EatTrigger");
+        updateDay();
+    }
+
+    private void updateDay()
+    {
+        if (isSitting && eaten)
+            FindObjectOfType<SceneController>().LoadNextScene();
     }
 }
