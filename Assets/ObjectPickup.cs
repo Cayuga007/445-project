@@ -9,9 +9,11 @@ public class ObjectPickup : MonoBehaviour
     private Vector3 originalPosition; // Original position of the object
     private Quaternion originalRotation; // Original rotation of the object
 
+    public OVRInput.Button interactionButton = OVRInput.Button.PrimaryIndexTrigger; // Button to interact (e.g., trigger button)
+
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Left mouse button click
+        if (OVRInput.GetDown(interactionButton)) // Detect button press on Oculus controller
         {
             if (heldObject == null)
             {
@@ -24,55 +26,56 @@ public class ObjectPickup : MonoBehaviour
         }
     }
 
-private void TryPickupObject()
-{
-    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Create a ray from the camera to mouse position
-    if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
+    private void TryPickupObject()
     {
-        if (hit.collider.CompareTag("Interactable")) // Check if object has "Interactable" tag
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward); // Raycast from headset camera
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
         {
-            heldObject = hit.collider.gameObject;
+            if (hit.collider.CompareTag("Interactable")) // Check if object has "Interactable" tag
+            {
+                heldObject = hit.collider.gameObject;
 
-            // Save original position and rotation
-            originalPosition = heldObject.transform.position;
-            originalRotation = heldObject.transform.rotation;
+                // Save original position and rotation
+                originalPosition = heldObject.transform.position;
+                originalRotation = heldObject.transform.rotation;
 
-            // Disable physics while holding
+                // Disable physics while holding
+                Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.isKinematic = true;
+                }
+
+                // Move object to hold point and center it
+                heldObject.transform.position = holdPoint.position;
+
+                // Center adjustment (optional offset)
+                Vector3 offset = new Vector3(0, 0, 0); // Adjust as needed
+                heldObject.transform.position += offset;
+
+                // Parent it to the hold point
+                heldObject.transform.SetParent(holdPoint);
+            }
+        }
+    }
+
+    private void PlaceObjectDown()
+    {
+        if (heldObject != null)
+        {
+            // Re-enable physics
             Rigidbody rb = heldObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.isKinematic = true;
+                rb.isKinematic = false;
             }
 
-            // Move object to hold point and center it
-            heldObject.transform.position = holdPoint.position;
-            
-            // Center adjustment (optional offset)
-            Vector3 offset = new Vector3(0, 0, 0); // Adjust as needed
-            heldObject.transform.position += offset;
+            // Unparent the object and return it to its original position and rotation
+            heldObject.transform.SetParent(null);
+            heldObject.transform.position = originalPosition;
+            heldObject.transform.rotation = originalRotation;
 
-            // Parent it to the hold point
-            heldObject.transform.SetParent(holdPoint);
+            heldObject = null;
         }
     }
-}
-   private void PlaceObjectDown()
-{
-    if (heldObject != null)
-    {
-        // Re-enable physics
-        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-        }
-
-        // Unparent the object and return it to its original position and rotation
-        heldObject.transform.SetParent(null);
-        heldObject.transform.position = originalPosition;
-        heldObject.transform.rotation = originalRotation;
-
-        heldObject = null;
-    }
-}
 }
