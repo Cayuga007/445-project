@@ -5,20 +5,18 @@ using UnityEngine;
 public class ObjectPickup : MonoBehaviour
 {
     [Header("Pickup Settings")]
-    public float interactionDistance = 3f; // 最大交互距离
-    public Transform holdPoint; // 抓取物体时的挂载点
-    private GameObject heldObject = null;
-    private Vector3 originalPosition;
-    private Quaternion originalRotation;
+    public Transform holdPoint; // Point where the object will be held
+    private GameObject heldObject = null; // Currently held object
+    private Vector3 originalPosition; // Original position of the object
+    private Quaternion originalRotation; // Original rotation of the object
 
     [Header("Layer Settings")]
-    public LayerMask interactableLayer; // 可交互物体的层级
+    public LayerMask interactableLayer; // Layer for interactable objects
 
     [Header("Input Settings")]
-    public OVRInput.Button pickupButton = OVRInput.Button.One; // 默认右手 A 键
+    public OVRInput.Button pickupButton = OVRInput.Button.One; // Default button (A button)
 
-    [Header("Hand Transform")]
-    public Transform handTransform; // 发射射线的起点方向（可用控制器或手部位置）
+    private GameObject nearbyObject = null; // Object currently in collision range
 
     void Update()
     {
@@ -27,44 +25,38 @@ public class ObjectPickup : MonoBehaviour
 
     private void HandleInteraction()
     {
-        if (OVRInput.GetDown(pickupButton))
+        if (OVRInput.Get(pickupButton)) // Button is held down
         {
-            if (heldObject == null)
+            if (heldObject == null && nearbyObject != null) // Pick up nearby object
             {
-                TryPickupObject();
+                TryPickupObject(nearbyObject);
             }
-            else
-            {
-                PlaceObjectDown();
-            }
+        }
+        else if (heldObject != null) // Release object when button is released
+        {
+            PlaceObjectDown();
         }
     }
 
-    private void TryPickupObject()
+    private void TryPickupObject(GameObject obj)
     {
-        Ray ray = new Ray(handTransform.position, handTransform.forward);
-        Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.green);
+        heldObject = obj;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactableLayer))
+        // Save original position and rotation
+        originalPosition = heldObject.transform.position;
+        originalRotation = heldObject.transform.rotation;
+
+        // Disable physics while holding
+        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+        if (rb != null)
         {
-            if (hit.collider.CompareTag("Interactable"))
-            {
-                heldObject = hit.collider.gameObject;
-
-                originalPosition = heldObject.transform.position;
-                originalRotation = heldObject.transform.rotation;
-
-                Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.isKinematic = true;
-                }
-
-                heldObject.transform.position = holdPoint.position;
-                heldObject.transform.rotation = holdPoint.rotation;
-                heldObject.transform.SetParent(holdPoint);
-            }
+            rb.isKinematic = true;
         }
+
+        // Move object to hold point and parent it to the hand
+        heldObject.transform.position = holdPoint.position;
+        heldObject.transform.rotation = holdPoint.rotation;
+        heldObject.transform.SetParent(holdPoint);
     }
 
     private void PlaceObjectDown()
@@ -77,11 +69,28 @@ public class ObjectPickup : MonoBehaviour
                 rb.isKinematic = false;
             }
 
+            // Unparent the object and restore its original position/rotation
             heldObject.transform.SetParent(null);
             heldObject.transform.position = originalPosition;
             heldObject.transform.rotation = originalRotation;
 
             heldObject = null;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Interactable")) // Check if object is interactable
+        {
+            nearbyObject = other.gameObject; // Store reference to nearby object
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == nearbyObject) // Clear reference when exiting collision range
+        {
+            nearbyObject = null;
         }
     }
 }
