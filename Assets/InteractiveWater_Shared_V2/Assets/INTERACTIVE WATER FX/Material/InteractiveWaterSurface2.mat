@@ -73,7 +73,7 @@ Material:
     - _FoamyColor: {r: 1, g: 1, b: 1, a: 1}
     - _MurkinessColor: {r: 0.7075472, g: 0.34408146, b: 0.0360448, a: 1}
     - _NoiseScrollSpeed: {r: 0.03, g: 0.03, b: 0, a: 0}
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _Tint: {r: 0.35779825, g: 0.400585, b: 0.49685526, a: 0}
     - _WaterFlowVelocity: {r: 0, g: 0, b: 0, a: 0}
     - _WaterStaticVelocity: {r: 0.48, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

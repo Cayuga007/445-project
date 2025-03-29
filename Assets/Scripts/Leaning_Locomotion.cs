@@ -322,7 +322,9 @@ public class Leaning_Locomotion : MonoBehaviour
             deadzoneRadius = leaningSettings.deadzoneRadius;            
         }
 
-        DeadZoneSetup();                
+        DeadZoneSetup();
+
+        Calibrate();
     }
 
     /// <summary>
