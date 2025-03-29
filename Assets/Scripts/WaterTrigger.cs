@@ -9,7 +9,7 @@ public class WaterTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Swimming");
-            // Enable leaning locomotion
+            other.GetComponentInChildren<OVRCameraRig>().GetComponent<Leaning_Locomotion>().enabled = true;
         }
     }
 }
