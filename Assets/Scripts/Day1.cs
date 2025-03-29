@@ -5,15 +5,22 @@ using UnityEngine;
 public class Day1 : MonoBehaviour
 {
     private int objectsInteracted = 0;
-    private AudioSource audioSource = GetComponent<AudioSource>();
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
 
-   public void updateInteraction(){
-objectsInteracted++;
-if (objectsInteracted ==3){
-audioSource.Play();
-StartCoroutine(WaitForAudio());
-   }}
+   public void updateInteraction()
+    {
+        objectsInteracted++;
+        if (objectsInteracted == 3){
+            audioSource.Play();
+            StartCoroutine(WaitForAudio());
+        }
+    }
 
    private System.Collections.IEnumerator WaitForAudio()
     {
