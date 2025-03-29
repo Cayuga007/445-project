@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SlappyAudio : MonoBehaviour
-{ private bool isGrabbed = false;
+{ 
+    private bool isGrabbed = false;
     private AudioSource audioSource; // Reference to the AudioSource component
 
     private void Start()
@@ -21,9 +22,11 @@ public class SlappyAudio : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        Debug.Log("Trigger enter");
+        Debug.Log(other.gameObject.name);
         if (!isGrabbed && (other.gameObject.name == "LeftHandAnchor" || other.gameObject.name == "RightHandAnchor"))
         {
+            Debug.Log("Hand");
             isGrabbed = true;
             
             audioSource.Play();
