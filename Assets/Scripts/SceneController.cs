@@ -25,8 +25,8 @@ public class SceneController : MonoBehaviour
         }
         else
         {
-            // Fade to white on day 4 before quitting
-            StartCoroutine(FadeAndQuit(Color.white, whiteFadeDuration));
+            // Delay for 5 seconds before fading to white, then quit after fading
+            StartCoroutine(FadeAndQuit(Color.white, whiteFadeDuration, 5f));
         }
     }
 
@@ -46,10 +46,15 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    private IEnumerator FadeAndQuit(Color fadeColor, float duration)
+    private IEnumerator FadeAndQuit(Color fadeColor, float duration, float delayBeforeFade)
     {
+        // Wait for the specified delay before fading to white
+        yield return new WaitForSeconds(delayBeforeFade);
+
         // Wait for fade out to complete
         yield return FadeOut(fadeColor, duration);
+
+        // Quit the application
         Application.Quit();
     }
 
