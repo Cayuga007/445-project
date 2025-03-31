@@ -168,8 +168,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Keys: 0100000007000000
   Values:
-  - {fileID: -2337476996910380293}
-  - {fileID: 6033607484735826323}
+  - {fileID: 6570721499487472097}
+  - {fileID: 4213313231952131642}
 --- !u!114 &338981159640092263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +216,20 @@ MonoBehaviour:
   m_AutomaticLoading: 0
   m_AutomaticRunning: 0
   m_Loaders: []
+--- !u!114 &4213313231952131642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Android Settings
+  m_EditorClassIdentifier: Unity.XR.Management:UnityEngine.XR.Management:XRGeneralSettings
+  m_LoaderManagerInstance: {fileID: 9111239949992522013}
+  m_InitManagerOnStart: 1
 --- !u!114 &4406417975392380838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,3 +302,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.XR.Management:UnityEngine.XR.Management:XRGeneralSettings
   m_LoaderManagerInstance: {fileID: 3901785494731670004}
   m_InitManagerOnStart: 1
+--- !u!114 &6570721499487472097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Standalone Settings
+  m_EditorClassIdentifier: Unity.XR.Management:UnityEngine.XR.Management:XRGeneralSettings
+  m_LoaderManagerInstance: {fileID: 6712282735575015882}
+  m_InitManagerOnStart: 1
+--- !u!114 &6712282735575015882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Standalone Providers
+  m_EditorClassIdentifier: Unity.XR.Management:UnityEngine.XR.Management:XRManagerSettings
+  m_RequiresSettingsUpdate: 0
+  m_AutomaticLoading: 0
+  m_AutomaticRunning: 0
+  m_Loaders: []
+--- !u!114 &9111239949992522013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Android Providers
+  m_EditorClassIdentifier: Unity.XR.Management:UnityEngine.XR.Management:XRManagerSettings
+  m_RequiresSettingsUpdate: 0
+  m_AutomaticLoading: 0
+  m_AutomaticRunning: 0
+  m_Loaders:
+  - {fileID: 11400000, guid: 6483f85c1df1be245986168b5c0b5e48, type: 2}
