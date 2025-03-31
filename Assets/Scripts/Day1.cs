@@ -12,18 +12,19 @@ public class Day1 : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-
-   public void updateInteraction()
+    public void updateInteraction()
     {
         objectsInteracted++;
-        if (objectsInteracted == 3){
-            audioSource.Play();
-            StartCoroutine(WaitForAudio());
+        if (objectsInteracted == 3)
+        {
+            StartCoroutine(DelayedAudio());
         }
     }
 
-   private System.Collections.IEnumerator WaitForAudio()
+    private IEnumerator DelayedAudio()
     {
+        yield return new WaitForSeconds(5f); // Wait for 5 seconds before playing audio
+        audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length);
         FindObjectOfType<SceneController>().LoadNextScene();
     }
