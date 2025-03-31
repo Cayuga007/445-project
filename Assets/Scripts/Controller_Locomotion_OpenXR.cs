@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 // VR Locomotion controller that handles both translation and rotation in virtual reality
 // Translation is controlled via thumbstick input with configurable forward direction
@@ -792,17 +796,21 @@ public class Controller_Locomotion_OpenXR : MonoBehaviour
             Gizmos.DrawLine(rawInputOrigin, rawInputOrigin + rawScaledInputDir);
             DrawArrowhead(rawInputOrigin + rawScaledInputDir, rawScaledInputDir, 0.1f, Color.cyan);
 
+#if UNITY_EDITOR
             // Add vector labels slightly offset from the arrows
             UnityEditor.Handles.color = Color.white;
             UnityEditor.Handles.Label(gizmoPosition + scaledInputDir + Vector3.up * 0.1f, "Adjusted Direction");
             UnityEditor.Handles.Label(rawInputOrigin + rawScaledInputDir + Vector3.up * 0.1f, "Raw Input");
+#endif
         }
 
+#if UNITY_EDITOR
         // Draw text information below the gizmo
         Vector3 textPosition = gizmoPosition + Vector3.down * 0.5f;
         UnityEditor.Handles.color = Color.white;
         string configInfo = $"Direction Device: {directionDevice}\nDirection Mode: {directionMode}";
         UnityEditor.Handles.Label(textPosition, configInfo);
+#endif
 
         // Draw scrolling rotation visualization if enabled
         if (rotationMethod == VirtualRotationMethod.Scrolling && isCalibrated)
@@ -836,6 +844,7 @@ public class Controller_Locomotion_OpenXR : MonoBehaviour
             Gizmos.DrawLine(gizmoPosition, gizmoPosition + currentHeadForward);
             DrawArrowhead(gizmoPosition + currentHeadForward, currentHeadForward, 0.1f, Color.white);
 
+#if UNITY_EDITOR
             // Add scrolling rotation information below the main configuration text
             Vector3 scrollingTextPosition = textPosition + Vector3.down * 0.3f;
             string scrollingInfo = $"Yaw Difference: {yawDifference:F1}\n" +
@@ -844,6 +853,7 @@ public class Controller_Locomotion_OpenXR : MonoBehaviour
                                       ? $"Over Threshold: {(Mathf.Abs(yawDifference) - scrollingThresholdAngle):F1}"
                                       : "Within Threshold");
             UnityEditor.Handles.Label(scrollingTextPosition, scrollingInfo);
+#endif
 
 
             // Draw rotation arcs if movement detected
@@ -924,6 +934,7 @@ public class Controller_Locomotion_OpenXR : MonoBehaviour
             Gizmos.color = new Color(1f, 0f, 1f, 0.5f); // Magenta for rotation
             DrawCircle(rotateOrigin, 1f);
 
+#if UNITY_EDITOR
             // Current rotation input
             if (currentRotationInput != Vector2.zero)
             {
@@ -936,6 +947,7 @@ public class Controller_Locomotion_OpenXR : MonoBehaviour
                 string stateText = isRotating ? "Rotating" : (canAcceptRotationInput ? "Ready" : "Waiting");
                 UnityEditor.Handles.Label(rotateOrigin + Vector3.up * 0.2f, stateText);
             }
+#endif
         }
     }
 

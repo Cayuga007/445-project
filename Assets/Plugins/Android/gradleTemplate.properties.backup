@@ -1,0 +1,4 @@
+org.gradle.jvmargs=-Xmx8192m -Dfile.encoding=UTF-8
+org.gradle.daemon=true
+org.gradle.parallel=true
+unityStreamingAssets=.unity3d**STREAMING_ASSETS**
