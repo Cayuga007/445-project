@@ -732,10 +732,7 @@ public class Leaning_Locomotion : MonoBehaviour
 
                 Vector3 distance = currentHMDPositionWithOffset - calibratedPosition;
 
-                string info = $"Distance vector from calibrated posture: {distance:F2}m \n" +
-                    $"Distance: {distance.magnitude:F2}m \n" +
-                    $"Velocity: {currentVelocity:F2} m/s \n" +
-                    $"Speed: {currentVelocity.magnitude:F2} m/s";
+                string info = "";
 
                 GUI.Label(new Rect(10, 40, 500, 200), info, style);            
             }
